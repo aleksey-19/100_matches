@@ -1,2 +1,2 @@
 # 100_matches
-Hello, i have a news: Dima is gay (^_^)
+Hello, i have a news: (^_^)
