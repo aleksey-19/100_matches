@@ -31,16 +31,17 @@ int main ()
       printf ("Нужно выбрать один из режимов!\n");
     }
   }
+
+  int smena_hoda = false;
+  int end_game = false;
+
   if (vibor_rejima == 1)
   {
     srand(time(NULL));
     strcpy (player_2,"Компьютер");
     printf ("Представьтесь пожалуйста:\n");
-    scanf ("'%s[60]'", &player_1);
+    scanf ("%s", &player_1);
     printf ("Привет, %s!\n",player_1);
-
-    int smena_hoda = false;
-    int end_game = false;
 
     printf ("Вы можете забрать от 1 до 10 спичек,пока их не останется, кто последний вытянет спички, тот победил, тяните спички!\n");
     while(end_game != true)
@@ -81,6 +82,75 @@ int main ()
           matches = matches - get;
           smena_hoda = false;
         }
+      }
+      if (matches == 0)
+      {
+        end_game = true;
+      }
+    }
+    if (smena_hoda == false)
+    {
+      printf("Победитель становится %s\n", player_1);
+    }
+    else
+    {
+      printf("Победитель становится %s\n", player_2);
+    }
+  }
+  if (vibor_rejima == 2)
+  {
+    printf ("Представьтесь пожалуйста, первый игрок:\n");
+    scanf ("%s'", &player_1);
+    printf ("Привет, %s!\n",player_1);
+
+    printf ("Представьтесь пожалуйста, второй игрок:\n");
+    scanf ("%s", &player_2);
+    printf ("Привет, %s!\n",player_2);
+
+    printf ("Вы можете забрать от 1 до 10 спичек,пока их не останется, кто последний вытянет спички, тот победил, тяните спички!\n");
+    while(end_game != true)
+    {
+      if (smena_hoda == false)
+      {
+        printf ("Спичек осталось %d. Ходит игрок %s\n",matches, player_1);
+        do
+        {
+          scanf ("%d",&get);
+          if (get >= 1 && get <=10)
+          {
+            matches = matches - get;
+            if(matches > 0)
+            {
+              smena_hoda = true;
+            }
+          }
+          else
+          {
+            printf("Не меньше 1 и не больше 10 спичек!!!");
+          }
+        }
+        while(get > 10 || get < 1);
+      }
+      else
+      {
+        printf ("Спичек осталось %d. Ходит игрок %s\n",matches, player_2);
+        do
+        {
+          scanf ("%d",&get);
+          if (get >= 1 && get <=10)
+          {
+            matches = matches - get;
+            if(matches > 0)
+            {
+              smena_hoda = false;
+            }
+          }
+          else
+          {
+            printf("Не меньше 1 и не больше 10 спичек!!!");
+          }
+        }
+        while(get > 10 || get < 1);
       }
       if (matches == 0)
       {
