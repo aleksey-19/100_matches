@@ -1,0 +1,25 @@
+CC ?= gcc
+BUILD_DIR = ./build
+SRC_DIR = ./src
+TEST_DIR = ./test
+TEST_CFLAGS ?= -DTEST
+CMOCK_DIR ?= /home/smile/my_project/100_matches/cmock
+UNITY_DIR ?= /home/smile/my_project/100_matches/cmock/vendor/unity
+TEST_BUILD_DIR ?= ${BUILD_DIR}/test
+TEST_MAKEFILE = ${TEST_BUILD_DIR}/MakefileTestSupport
+OBJ ?= ${BUILD_DIR}/obj
+OBJ_DIR = ${OBJ}
+
+./build/test/obj/unity.o: /home/smile/my_project/100_matches/cmock/vendor/unity/src/unity.c
+	${CC} -o $@ -c $< -I /home/smile/my_project/100_matches/cmock/vendor/unity/src
+
+./build/test/obj/cmock.o: /home/smile/my_project/100_matches/cmock/src/cmock.c
+	${CC} -o $@ -c $< -I /home/smile/my_project/100_matches/cmock/vendor/unity/src -I /home/smile/my_project/100_matches/cmock/src
+
+test_summary:
+	@UNITY_DIR=${UNITY_DIR} ruby ${CMOCK_DIR}/scripts/test_summary.rb 
+
+.PHONY: test_summary
+
+test:  test_summary
+
