@@ -1,6 +1,8 @@
 #include "game.h"
 #include "name_players.h"
 #include "read.h"
+#include "mode.h"
+#include "winner.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -19,36 +21,25 @@ char num[60] = {0};
 
 char player_1[60]; char player_2[60];
 
-int mode()
+int start ()
 {
+  printf ("Добро пожаловать в игру под названием ""100 спичек""!\n\n"
+          "Описание игры: из кучки, первоначально содержащей 100 спичек, двое "
+          "играющих поочередно берут по несколько спичек: не менее одной и не "
+          "более десяти. Выигрывает взявший последнюю(ии) спичку(и).\n\n"
+          "Выберите режим игры.\n\n"
+          "1. Одиночный\n"
+          "2. Вдвоём\n");
 
-  int vibor_rejima = 0;
-  int vibor_rejima_flag = false;
-  while (vibor_rejima_flag == false)
+  int vibor_rejima_mode = mode ();
+  
+  if (vibor_rejima_mode == 1)
   {
-    reading(num);
-    vibor_rejima = atoi(num);
-    if (vibor_rejima != 1 && vibor_rejima != 2)
-    {
-      printf ("Нужно выбрать один из режимов!\n");
-    }
-    else
-    {
-      vibor_rejima_flag = true;
-    }
+    mode_computer();
   }
-  return vibor_rejima;
-}
-
-int winner (int smena_hoda_num)
-{
-    if (smena_hoda_num == false)
+  if (vibor_rejima_mode == 2)
   {
-    printf("Победитель становится %s\n", player_1);
-  }
-  else
-  {
-    printf("Победитель становится %s\n", player_2);
+    mode_2_players ();
   }
   return 0;
 }
@@ -98,12 +89,13 @@ int mode_computer ()
         smena_hoda = false;
       }
     }
-    if (matches == 0)
+    if (matches <= 0)
     {
       end_game = true;
     }
   }
-  winner(smena_hoda);
+  winner(smena_hoda, player_1, player_2);
+  return 0;
 }
 
 int mode_2_players ()
@@ -156,10 +148,11 @@ int mode_2_players ()
       }
       while(get > 10 || get < 1);
     }
-    if (matches == 0)
+    if (matches <= 0)
     {
       end_game = true;
     }
   }
-  winner(smena_hoda);
+  winner(smena_hoda, player_1, player_2);
+  return 0;
 }

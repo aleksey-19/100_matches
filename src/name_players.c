@@ -1,6 +1,7 @@
 #include "name_players.h"
 #include "read.h"
 #include <string.h>
+#include <stdlib.h>
 #include <stdio.h>
 
 char naming (int mode, char p_1[60], char p_2[60])
